@@ -154,17 +154,12 @@ class PrivateUserApiTests(TestCase):
     def test_post_me_not_allowed(self):
         """Test POST is not allowed to me endpoint """
         res = self.client.post(ME_URL, {})
-        print("status code is : ")
-        print(res.status_code)
 
         self.assertEqual(res.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_update_user_profile(self):
         """ Update the user profile for the authenticated user """
-        payload = {
-            'name': 'Updated name',
-            'password': 'newpassword123'
-        }
+        payload = {'name': 'Updated name', 'password': 'newpassword123'}
 
         res = self.client.patch(ME_URL, payload)
         self.user.refresh_from_db()
